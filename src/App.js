@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Sidebar from "./components/Sidebar";
+import Home from "./pages/Home";
+import SongDetails from "./pages/SongDetails";
+import { ThemeProvider } from "./context/ThemeContext";
+import ThemeToggle from "./components/ThemeToggle";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider>
+      <BrowserRouter>
+        <div className="flex min-h-screen">
+          {/* Sidebar */}
+          <Sidebar />
+
+          {/* Main Content Area */}
+          <div className="flex-1 flex justify-center bg-gray-100 p-6">
+            <div className="w-full max-w-5xl">
+              <ThemeToggle />
+
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/song/:id" element={<SongDetails />} />
+              </Routes>
+            </div>
+          </div>
+        </div>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
