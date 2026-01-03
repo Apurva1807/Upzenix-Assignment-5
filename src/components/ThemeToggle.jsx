@@ -1,18 +1,10 @@
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import usePlayerStore from "../store/usePlayerStore";
 
 const ThemeToggle = () => {
-  const { toggleTheme, theme } = useContext(ThemeContext);
+  const { theme, toggleTheme } = usePlayerStore();
 
   return (
-    <button
-      onClick={toggleTheme}
-      style={{
-        padding: "6px 12px",
-        marginBottom: "12px",
-        cursor: "pointer",
-      }}
-    >
+    <button onClick={toggleTheme}>
       Switch to {theme === "light" ? "Dark" : "Light"} Mode
     </button>
   );

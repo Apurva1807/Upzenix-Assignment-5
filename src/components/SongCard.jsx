@@ -1,20 +1,29 @@
 import { Link } from "react-router-dom";
+import usePlayerStore from "../store/usePlayerStore";
 
 const SongCard = ({ song }) => {
+  const playSong = usePlayerStore((state) => state.playSong);
+
   return (
-    <div className="border rounded p-4 bg-white shadow hover:shadow-md transition">
-      <h3 className="font-bold text-lg">{song.title}</h3>
+    <div
+      style={{
+        border: "1px solid #ccc",
+        padding: "16px",
+        marginBottom: "16px",
+        borderRadius: "6px",
+        backgroundColor: "#fff",
+      }}
+    >
+      <h3 style={{ fontWeight: "bold" }}>{song.title}</h3>
+      <p>{song.artist}</p>
+      <p style={{ fontSize: "12px", color: "#666" }}>{song.genre}</p>
 
-      <p className="text-sm text-gray-600">{song.artist}</p>
+      <button onClick={() => playSong(song)}>
+        Play
+      </button>
 
-      <p className="text-xs text-gray-500 mb-3">{song.genre}</p>
-
-      <Link
-        to={`/song/${song.id}`}
-        className="text-blue-600 text-sm font-medium"
-      >
-        View Details
-      </Link>
+      <br />
+      <Link to={`/song/${song.id}`}>View Details</Link>
     </div>
   );
 };

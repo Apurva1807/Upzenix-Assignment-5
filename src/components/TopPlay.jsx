@@ -1,21 +1,42 @@
-const TopPlay = ({ song }) => {
-  if (!song) {
-    return (
-      <div className="p-4 bg-gray-100 rounded mb-4">
-        <p>No song selected</p>
-      </div>
-    );
-  }
-  return (
-    <div className="p-4 bg-gray-100 rounded mb-4">
-      <p className="font-bold">Now Playing</p>
-      <p>{song.title}</p>
-      <p className="text-sm text-gray-600">{song.artist}</p>
+import usePlayerStore from "../store/usePlayerStore";
 
-      <button className="mt-2 px-4 py-1 bg-blue-500 text-white rounded">
-        Play / Pause
-      </button>
+const TopPlay = () => {
+  const {
+    currentSong,
+    isPlaying,
+    togglePlay,
+    lastPlayed,
+  } = usePlayerStore();
+
+  return (
+    <div
+      style={{
+        padding: "10px",
+        borderBottom: "1px solid #ccc",
+        marginBottom: "10px",
+      }}
+    >
+      {/* Now Playing */}
+      {currentSong ? (
+        <>
+          <strong>Now Playing:</strong> {currentSong.title}
+          <br />
+          <button onClick={togglePlay}>
+            {isPlaying ? "Pause" : "Play"}
+          </button>
+        </>
+      ) : (
+        <p>No song playing</p>
+      )}
+
+      {/* Last Played */}
+      {lastPlayed && (
+        <p style={{ fontSize: "12px", marginTop: "6px" }}>
+          Last Played: <strong>{lastPlayed.title}</strong>
+        </p>
+      )}
     </div>
   );
 };
+
 export default TopPlay;
